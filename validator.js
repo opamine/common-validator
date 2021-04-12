@@ -13,7 +13,7 @@ export function validateUserName(rule, value, callback) {
 	const reg = /^[a-zA-Z\d_\u4e00-\u9fa5]{2,20}$/
 	const errors = []
 	if (value && reg.test(value) === false) {
-		errors.push(new Error(`姓名格式不合法`, rule.field))
+		errors.push(new Error(`用户名格式不合法`, rule.field))
 	}
 	callback(errors)
 }
