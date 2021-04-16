@@ -23,7 +23,7 @@ export function validatePhone(rule, value, callback) {
 	const reg = /^(13[0-9]|14[0-9]|15[0-9]|166|17[0-9]|18[0-9]|19[8|9])\d{8}$/
 	const errors = []
 	if (value && reg.test(value) === false) {
-		errors.push(new Error(`手机号码输格式不合法`, rule.field))
+		errors.push(new Error(`手机号码格式不合法`, rule.field))
 	}
 	callback(errors)
 }
@@ -73,7 +73,7 @@ export function validatePort(rule, value, callback) {
 	const reg = /^([1-9]|[1-5]\d{4}|6[1-4]\d{3}|65[1-4]\d{2}|655[1-2]\d|6553[1-5])$/
 	const errors = []
 	if (value && reg.test(value) === false) {
-		errors.push(new Error(`端口号不合法`, rule.field))
+		errors.push(new Error(`端口号格式不合法`, rule.field))
 	}
 	callback(errors)
 }
@@ -84,7 +84,7 @@ export function validateHMTCardID(rule, value, callback) {
 	const reg2 = /^\d{8}|^[a-zA-Z0-9]{10}|^\d{18}$/
 	const errors = []
 	if (value && (reg.test(value) === false || reg2.test(value) === false)) {
-		errors.push(new Error(`港澳台居民来往内地通行证号码不合法`, rule.field))
+		errors.push(new Error(`港澳台居民来往内地通行证号码格式不合法`, rule.field))
 	}
 	callback(errors)
 }
@@ -94,7 +94,7 @@ export function validateHMCardID(rule, value, callback) {
 	const reg = /^([A-Z]\d{6,10}(\(\w{1}\))?)$/
 	const errors = []
 	if (value && (reg.test(value) === false || reg2.test(value) === false)) {
-		errors.push(new Error(`港澳居民来往内地通行证号码不合法`, rule.field))
+		errors.push(new Error(`港澳居民来往内地通行证号码格式不合法`, rule.field))
 	}
 	callback(errors)
 }
@@ -104,7 +104,7 @@ export function validateTCardID(rule, value, callback) {
 	const reg = /^\d{8}|^[a-zA-Z0-9]{10}|^\d{18}$/
 	const errors = []
 	if (value && reg.test(value) === false) {
-		errors.push(new Error(`台湾居民来往内地通行证号码不合法`, rule.field))
+		errors.push(new Error(`台湾居民来往内地通行证号码格式不合法`, rule.field))
 	}
 	callback(errors)
 }
