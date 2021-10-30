@@ -38,6 +38,98 @@ export const validateEmail = (rule, value, callback) => {
   callback(errors);
 };
 
+// 校验颜色十六进制
+export const validateRGBHex = (rule, value, callback) => {
+  const reg = /^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/;
+  const errors = [];
+  if (value && reg.test(value) === false) {
+    errors.push(new Error(`颜色十六进制格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
+// 校验 QQ 号（5  至 11 位数字）
+export const validateQQNum = (rule, value, callback) => {
+  const reg = /^[1-9][0-9]{4,10}$/;
+  const errors = [];
+  if (value && reg.test(value) === false) {
+    errors.push(new Error(`QQ号格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
+// 校验 微信 号（6 至 20 位，以字母开头 + 字母，数字，减号，下划线）
+export const validateWeChatNum = (rule, value, callback) => {
+  const reg = /^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/;
+  const errors = [];
+  if (value && reg.test(value) === false) {
+    errors.push(new Error(`微信号格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
+// 校验车牌号
+export const validateLicensePlateNum = (rule, value, callback) => {
+  const reg =
+    /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
+  const errors = [];
+  if (value && reg.test(value) === false) {
+    errors.push(new Error(`车牌号格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
+// 校验 url
+export const validateUrl = (rule, value, callback) => {
+  const reg = /^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+  const errors = [];
+  if (value && reg.test(value) === false) {
+    errors.push(new Error(`url 地址格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
+// 校验 IP-v4
+export const validateIPv4 = (rule, value, callback) => {
+  const reg = /^(25[0-5]|2[0-4]\d|[0-1]?\d?\d)(\.(25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}$/;
+  const errors = [];
+  if (value && reg.test(value) === false) {
+    errors.push(new Error(`IP-v4 地址格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
+// 校验 IP-v6
+export const validateIPv6 = (rule, value, callback) => {
+  const reg =
+    /(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))/;
+  const errors = [];
+  if (value && reg.test(value) === false) {
+    errors.push(new Error(`IP-v6 地址格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
+// 校验端口号(0一般作为保留端口，很少会用做输入，去掉0的正则表达式（不支持0）)
+export const validatePort = (rule, value, callback) => {
+  const reg = /^([1-9]|[1-5]\d{4}|6[1-4]\d{3}|65[1-4]\d{2}|655[1-2]\d|6553[1-5])$/;
+  const errors = [];
+  if (value && reg.test(value) === false) {
+    errors.push(new Error(`端口号格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
+// 校验中国地区邮政编码（6位数字）
+export const validateChinaZipCode = (rule, value, callback) => {
+  const reg = /^[1-9]\d{5}(?!\d)$/;
+  const errors = [];
+  if (value && reg.test(value) === false) {
+    errors.push(new Error(`邮政编码格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
 // 校验身份证号(15位)
 export const validateCardID15 = (rule, value, callback) => {
   const reg = /^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$/;
@@ -54,26 +146,6 @@ export const validateCardID18 = (rule, value, callback) => {
   const errors = [];
   if (value && reg.test(value) === false) {
     errors.push(new Error(`身份证号码格式不符`, rule.field));
-  }
-  callback(errors);
-};
-
-// 校验 IP-v4
-export const validateIPv4 = (rule, value, callback) => {
-  const reg = /^(25[0-5]|2[0-4]\d|[0-1]?\d?\d)(\.(25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}$/;
-  const errors = [];
-  if (value && reg.test(value) === false) {
-    errors.push(new Error(`IP-v4地址格式不符`, rule.field));
-  }
-  callback(errors);
-};
-
-// 校验端口号(0一般作为保留端口，很少会用做输入，去掉0的正则表达式（不支持0）)
-export const validatePort = (rule, value, callback) => {
-  const reg = /^([1-9]|[1-5]\d{4}|6[1-4]\d{3}|65[1-4]\d{2}|655[1-2]\d|6553[1-5])$/;
-  const errors = [];
-  if (value && reg.test(value) === false) {
-    errors.push(new Error(`端口号格式不符`, rule.field));
   }
   callback(errors);
 };
