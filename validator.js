@@ -1,5 +1,5 @@
 // 校验真实中文姓名（2 - 20 位汉字）
-export const validateRealName = (rule, value, callback) => {
+const validateRealName = (rule, value, callback) => {
   const reg = /^[\u4e00-\u9fa5]{2,20}$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -9,7 +9,7 @@ export const validateRealName = (rule, value, callback) => {
 };
 
 // 校验用户名（字母数字下划线中文 2 - 20 位）
-export const validateUserName = (rule, value, callback) => {
+const validateUserName = (rule, value, callback) => {
   const reg = /^[a-zA-Z\d_\u4e00-\u9fa5]{2,20}$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -19,7 +19,7 @@ export const validateUserName = (rule, value, callback) => {
 };
 
 // 校验手机号
-export const validatePhone = (rule, value, callback) => {
+const validatePhone = (rule, value, callback) => {
   const reg = /^(13[0-9]|14[0-9]|15[0-9]|166|17[0-9]|18[0-9]|19[5|8|9])\d{8}$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -29,7 +29,7 @@ export const validatePhone = (rule, value, callback) => {
 };
 
 // 校验 Email
-export const validateEmail = (rule, value, callback) => {
+const validateEmail = (rule, value, callback) => {
   const reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -39,7 +39,7 @@ export const validateEmail = (rule, value, callback) => {
 };
 
 // 校验 QQ 号（5  至 11 位数字）
-export const validateQQNum = (rule, value, callback) => {
+const validateQQNum = (rule, value, callback) => {
   const reg = /^[1-9][0-9]{4,10}$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -49,7 +49,7 @@ export const validateQQNum = (rule, value, callback) => {
 };
 
 // 校验 微信 号（6 至 20 位，以字母开头 + 字母，数字，减号，下划线）
-export const validateWeChatNum = (rule, value, callback) => {
+const validateWeChatNum = (rule, value, callback) => {
   const reg = /^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -59,7 +59,7 @@ export const validateWeChatNum = (rule, value, callback) => {
 };
 
 // 校验车牌号
-export const validateLicensePlateNum = (rule, value, callback) => {
+const validateLicensePlateNum = (rule, value, callback) => {
   const reg =
     /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
   const errors = [];
@@ -69,8 +69,23 @@ export const validateLicensePlateNum = (rule, value, callback) => {
   callback(errors);
 };
 
+// 校验颜色 rgb(a)
+const validateColorRGB = (rule, value, callback) => {
+  // rgb 正则
+  const reg_rgb =
+    /^[rR][gG][bB][\(]([\s]*(2[0-4]\d|25[0-5]|[01]?\d\d?)[\s]*,){2}[\s]*(2[0-4]\d|25[0-5]|[01]?\d\d?)[\s]*[\)]{1}$/;
+  // rgba 正则
+  const reg_rgba =
+    /^[rR][gG][bB][aA][\(]([\s]*(2[0-4]\d|25[0-5]|[01]?\d\d?)[\s]*,){2}[\s]*(2[0-4]\d|25[0-5]|[01]?\d\d?),[\s]*(0?\.\d{1,2}|1|0)?[\)]{1}$/;
+  const errors = [];
+  if (value && reg_rgb.test(value) === false && reg_rgba.test(value) === false) {
+    errors.push(new Error(`颜色 rgb(a) 格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
 // 校验颜色十六进制
-export const validateRGBHex = (rule, value, callback) => {
+const validateColorHex = (rule, value, callback) => {
   const reg = /^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -80,7 +95,7 @@ export const validateRGBHex = (rule, value, callback) => {
 };
 
 // 校验 url
-export const validateUrl = (rule, value, callback) => {
+const validateUrl = (rule, value, callback) => {
   const reg = /^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -90,7 +105,7 @@ export const validateUrl = (rule, value, callback) => {
 };
 
 // 校验 IP-v4
-export const validateIPv4 = (rule, value, callback) => {
+const validateIPv4 = (rule, value, callback) => {
   const reg = /^(25[0-5]|2[0-4]\d|[0-1]?\d?\d)(\.(25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -100,9 +115,9 @@ export const validateIPv4 = (rule, value, callback) => {
 };
 
 // 校验 IP-v6
-export const validateIPv6 = (rule, value, callback) => {
+const validateIPv6 = (rule, value, callback) => {
   const reg =
-    /(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))/;
+    /^([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])$/;
   const errors = [];
   if (value && reg.test(value) === false) {
     errors.push(new Error(`IP-v6 地址格式不符`, rule.field));
@@ -111,7 +126,7 @@ export const validateIPv6 = (rule, value, callback) => {
 };
 
 // 校验端口号(0一般作为保留端口，很少会用做输入，去掉0的正则表达式（不支持0）)
-export const validatePort = (rule, value, callback) => {
+const validatePort = (rule, value, callback) => {
   const reg =
     /^((6553[0-5])|(655[0-2][0-9])|(65[0-4][0-9]{2})|(6[0-4][0-9]{3})|([1-5][0-9]{4})|([0-5]{0,5})|([0-9]{1,4}))$/;
   const errors = [];
@@ -122,7 +137,7 @@ export const validatePort = (rule, value, callback) => {
 };
 
 // 校验设备 MAC 地址
-export const validateMacAddress = (rule, value, callback) => {
+const validateMacAddress = (rule, value, callback) => {
   const reg = /^[a-fA-F0-9]{2}(:[a-fA-F0-9]{2}){5}$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -132,7 +147,7 @@ export const validateMacAddress = (rule, value, callback) => {
 };
 
 // 校验中国地区邮政编码（6位数字）
-export const validateChinaZipCode = (rule, value, callback) => {
+const validateChinaZipCode = (rule, value, callback) => {
   const reg = /^[1-9]\d{5}(?!\d)$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -142,8 +157,8 @@ export const validateChinaZipCode = (rule, value, callback) => {
 };
 
 // 校验身份证号(15位)
-export const validateCardID15 = (rule, value, callback) => {
-  const reg = /^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$/;
+const validateCardID15 = (rule, value, callback) => {
+  const reg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
   const errors = [];
   if (value && reg.test(value) === false) {
     errors.push(new Error(`身份证号码格式不符`, rule.field));
@@ -152,8 +167,8 @@ export const validateCardID15 = (rule, value, callback) => {
 };
 
 // 校验身份证号(18位)
-export const validateCardID18 = (rule, value, callback) => {
-  const reg = /^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$/;
+const validateCardID18 = (rule, value, callback) => {
+  const reg = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
   const errors = [];
   if (value && reg.test(value) === false) {
     errors.push(new Error(`身份证号码格式不符`, rule.field));
@@ -162,7 +177,7 @@ export const validateCardID18 = (rule, value, callback) => {
 };
 
 // 校验港澳台居民来往内地通行证号码
-export const validateHMTCardID = (rule, value, callback) => {
+const validateHMTCardID = (rule, value, callback) => {
   const reg = /^([A-Z]\d{6,10}(\(\w{1}\))?)$/;
   const reg2 = /^\d{8}|^[a-zA-Z0-9]{10}|^\d{18}$/;
   const errors = [];
@@ -173,7 +188,7 @@ export const validateHMTCardID = (rule, value, callback) => {
 };
 
 // 校验港澳居民来往内地通行证号码
-export const validateHMCardID = (rule, value, callback) => {
+const validateHMCardID = (rule, value, callback) => {
   const reg = /^([A-Z]\d{6,10}(\(\w{1}\))?)$/;
   const errors = [];
   if (value && (reg.test(value) === false || reg2.test(value) === false)) {
@@ -183,7 +198,7 @@ export const validateHMCardID = (rule, value, callback) => {
 };
 
 // 校验台湾居民来往内地通行证号码
-export const validateTCardID = (rule, value, callback) => {
+const validateTCardID = (rule, value, callback) => {
   const reg = /^\d{8}|^[a-zA-Z0-9]{10}|^\d{18}$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -193,7 +208,7 @@ export const validateTCardID = (rule, value, callback) => {
 };
 
 // 校验护照
-export const validatePassPortCard = (rule, value, callback) => {
+const validatePassPortCard = (rule, value, callback) => {
   const reg = /^([a-zA-z]|[0-9]){5,17}$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -203,7 +218,7 @@ export const validatePassPortCard = (rule, value, callback) => {
 };
 
 // 校验军官证
-export const validateOfficerCardID = (rule, value, callback) => {
+const validateOfficerCardID = (rule, value, callback) => {
   const reg = /^[\u4E00-\u9FA5](字第)([0-9a-zA-Z]{4,8})(号?)$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -213,7 +228,7 @@ export const validateOfficerCardID = (rule, value, callback) => {
 };
 
 // 校验户口本
-export const validateAccountCardID = (rule, value, callback) => {
+const validateAccountCardID = (rule, value, callback) => {
   const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -223,7 +238,7 @@ export const validateAccountCardID = (rule, value, callback) => {
 };
 
 // 校验回乡证
-export const validateReturnHomeCardID = (rule, value, callback) => {
+const validateReturnHomeCardID = (rule, value, callback) => {
   const reg = /(H|M)(\d{10})$/;
   const errors = [];
   if (value && reg.test(value) === false) {
@@ -233,7 +248,7 @@ export const validateReturnHomeCardID = (rule, value, callback) => {
 };
 
 // 校验 uuid
-export const validateUuid = (rule, value, callback) => {
+const validateUuid = (rule, value, callback) => {
   const reg =
     /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
   const errors = [];
