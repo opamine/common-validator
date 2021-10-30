@@ -1,4 +1,4 @@
-// 校验真实中文姓名(2~20字汉字)
+// 校验真实中文姓名（2 - 20 位汉字）
 export const validateRealName = (rule, value, callback) => {
   const reg = /^[\u4e00-\u9fa5]{2,20}$/;
   const errors = [];
@@ -8,7 +8,7 @@ export const validateRealName = (rule, value, callback) => {
   callback(errors);
 };
 
-// 校验用户名(字母数字下划线中文)
+// 校验用户名（字母数字下划线中文 2 - 20 位）
 export const validateUserName = (rule, value, callback) => {
   const reg = /^[a-zA-Z\d_\u4e00-\u9fa5]{2,20}$/;
   const errors = [];
@@ -34,16 +34,6 @@ export const validateEmail = (rule, value, callback) => {
   const errors = [];
   if (value && reg.test(value) === false) {
     errors.push(new Error(`邮箱地址格式不符`, rule.field));
-  }
-  callback(errors);
-};
-
-// 校验颜色十六进制
-export const validateRGBHex = (rule, value, callback) => {
-  const reg = /^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/;
-  const errors = [];
-  if (value && reg.test(value) === false) {
-    errors.push(new Error(`颜色十六进制格式不符`, rule.field));
   }
   callback(errors);
 };
@@ -75,6 +65,16 @@ export const validateLicensePlateNum = (rule, value, callback) => {
   const errors = [];
   if (value && reg.test(value) === false) {
     errors.push(new Error(`车牌号格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
+// 校验颜色十六进制
+export const validateRGBHex = (rule, value, callback) => {
+  const reg = /^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/;
+  const errors = [];
+  if (value && reg.test(value) === false) {
+    errors.push(new Error(`颜色十六进制格式不符`, rule.field));
   }
   callback(errors);
 };
@@ -112,10 +112,21 @@ export const validateIPv6 = (rule, value, callback) => {
 
 // 校验端口号(0一般作为保留端口，很少会用做输入，去掉0的正则表达式（不支持0）)
 export const validatePort = (rule, value, callback) => {
-  const reg = /^([1-9]|[1-5]\d{4}|6[1-4]\d{3}|65[1-4]\d{2}|655[1-2]\d|6553[1-5])$/;
+  const reg =
+    /^((6553[0-5])|(655[0-2][0-9])|(65[0-4][0-9]{2})|(6[0-4][0-9]{3})|([1-5][0-9]{4})|([0-5]{0,5})|([0-9]{1,4}))$/;
   const errors = [];
   if (value && reg.test(value) === false) {
     errors.push(new Error(`端口号格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
+// 校验设备 MAC 地址
+export const validateMacAddress = (rule, value, callback) => {
+  const reg = /^[a-fA-F0-9]{2}(:[a-fA-F0-9]{2}){5}$/;
+  const errors = [];
+  if (value && reg.test(value) === false) {
+    errors.push(new Error(`MAC 地址格式不符`, rule.field));
   }
   callback(errors);
 };
@@ -217,6 +228,17 @@ export const validateReturnHomeCardID = (rule, value, callback) => {
   const errors = [];
   if (value && reg.test(value) === false) {
     errors.push(new Error(`回乡证号码格式不符`, rule.field));
+  }
+  callback(errors);
+};
+
+// 校验 uuid
+export const validateUuid = (rule, value, callback) => {
+  const reg =
+    /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
+  const errors = [];
+  if (value && reg.test(value) === false) {
+    errors.push(new Error(`uuid 格式不符`, rule.field));
   }
   callback(errors);
 };
